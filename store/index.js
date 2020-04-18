@@ -135,7 +135,7 @@ export const getters = {
     try{
       var newProductsList = [];
       let res = await axios
-      .get('http://127.0.0.1:8000/item/?format=json')
+      .get(process.env.ROOT_API+'item/?format=json')
       .then(response => {
         response.data.forEach(element => {
           newProductsList.push({
@@ -165,7 +165,7 @@ export const getters = {
     try{
       var newProductsRatingsObjectList = [];
       let res = await axios
-      .get('http://127.0.0.1:8000/itemRatings/?format=json')
+      .get(process.env.ROOT_API+'itemRatings/?format=json')
       .then(response => {
         response.data.forEach(element => {
           newProductsRatingsObjectList.push({
@@ -184,7 +184,7 @@ export const getters = {
     try{
       var newProductsReviewsObjectList = [];
       let res = await axios
-      .get('http://127.0.0.1:8000/itemReviews/?format=json')
+      .get(process.env.ROOT_API+'itemReviews/?format=json')
       .then(response => {
         response.data.forEach(element => {
           newProductsReviewsObjectList.push({
