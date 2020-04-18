@@ -133,9 +133,12 @@ export const getters = {
 //o IE den upostirizei async
   async getProductsFromBackend() {
     try{
+      var partial_url = '/item/?format=json';
+      var combined_url = "https://veggiestreet.herokuapp.com"+partial_url;
+      console.log("api url"+ combined_url);
       var newProductsList = [];
       let res = await axios
-      .get(process.env.ROOT_API+'item/?format=json')
+      .get(combined_url)
       .then(response => {
         response.data.forEach(element => {
           newProductsList.push({
@@ -163,9 +166,11 @@ export const getters = {
   async getProductRatingsFromBackend()
   {
     try{
+      var partial_url = '/itemRatings/?format=json';
+      var combined_url = "https://veggiestreet.herokuapp.com"+partial_url;
       var newProductsRatingsObjectList = [];
       let res = await axios
-      .get(process.env.ROOT_API+'itemRatings/?format=json')
+      .get(combined_url)
       .then(response => {
         response.data.forEach(element => {
           newProductsRatingsObjectList.push({
@@ -182,9 +187,11 @@ export const getters = {
   async getProductReviewsFromBackend()
   {
     try{
+      var partial_url = '/itemReviews/?format=json';
+      var combined_url = "https://veggiestreet.herokuapp.com"+partial_url;
       var newProductsReviewsObjectList = [];
       let res = await axios
-      .get(process.env.ROOT_API+'itemReviews/?format=json')
+      .get(combined_url)
       .then(response => {
         response.data.forEach(element => {
           newProductsReviewsObjectList.push({
