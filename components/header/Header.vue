@@ -54,6 +54,23 @@
         <VmMenu></VmMenu>
       </div>
     </nav>
+
+    <div class="pos-f-t">
+    <div class="collapse" id="navbarToggleExternalContent">
+      <div class="bg p-4">
+        <h4 class="text-black" style="margin-bottom:1em;">Τα προϊόνα μας:</h4>
+        <ul @click="setProductCatogory ()">
+          <li class="text-muted" v-for="cat in productCategories" :key="cat.value"><a @click="category=cat.label">{{cat.value}}</a></li>
+        </ul>
+      </div>
+    </div>
+    <nav class="navbar navbar-dark bg">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span> <h4 class="text-white">&gt;&gt;&gt; Επιλεξτε κατηγορία &lt;&lt;&lt; </h4></span>
+      </button>
+    </nav>
+  </div>
+  
   </div>
 </template>
 
@@ -71,7 +88,13 @@
         twitterTooltip: 'Follow us on Twitter',
         instagramTooltip: 'Follow us on Instagram',
         isCheckoutActive: false,
-        isMenuOpen: false
+        isMenuOpen: false,
+        category: 1,
+        productCategories: [
+          {label: 1, value: "Φρούτα"},
+          {label: 2, value: "Λαχανικά"},
+          {label: 3,value: "VeggieStreet"},
+          {label: 4, value:"Χονδρικής για καταστήματα"}]
       }
     },
 
@@ -89,6 +112,10 @@
     methods: {
       showCheckoutModal () {
         this.$store.commit('showCheckoutModal', true);
+      },
+      setProductCatogory () { //commits the local category selector to the global one
+        console.log("local category label "+ this.category);
+        this.$store.commit('setProductCategorSelected', this.category);
       }
     }
   };
@@ -105,10 +132,22 @@
   .shopping-cart {
     cursor: pointer;
   }
-  a {
+  a{
     color: grey;
+  }
+  a:hover{
+    background: lightblue;
+    color: black !important;
   }
   nav{
     background: #B9E2FC;
+  }
+  li{
+    margin-bottom: 5px;
+    margin-left: 1em;
+  }
+  li:hover{
+    text-decoration: underline;
+    color: black;
   }
 </style>

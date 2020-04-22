@@ -118,12 +118,15 @@ export const state = () => ({
     isSignedUp: false,
     hasSearched: false,
     name: '',
-    productTitleSearched: ''
+    productTitleSearched: '',
+    productCategorySelected: 1,
+
   },
   systemInfo: {
     openLoginModal: false,
     openSignupModal: false,
-    openCheckoutModal: false
+    openCheckoutModal: false,
+    isLoadingProducts: true
   }
 })
 //tha prepei na kanoun get apo ton axios kai na kratane ola ta products se enan pinaka
@@ -145,6 +148,7 @@ export const getters = {
             "id" : element.product_id,
             "title" : element.product_title,
             "description" : element.product_description,
+            "category" : element.product_category,
             "price" : element.product_price,
             "image" : element.product_picture,
             "ratings" : 1,  //mo olwn twn ratings
@@ -206,7 +210,9 @@ export const getters = {
       console.log(error)
     }
   },
-  
+  getProductsByCategory: state => {
+    return state.products.filter(function(product){return product.category == state.userInfo.productCategorySelected});
+  },
   productsAdded: state => {
     return state.products.filter(el => {
       return el.isAddedToCart;
@@ -306,6 +312,9 @@ export const mutations = {
   setProductTitleSearched: (state, titleSearched) => {
     state.userInfo.productTitleSearched = titleSearched;
   },
+  setProductCategorSelected (state, categorySet) {
+    state.userInfo.productCategorySelected = categorySet;
+  },
   showLoginModal: (state, show) => {
     state.systemInfo.openLoginModal = show;
   },
@@ -338,6 +347,9 @@ export const mutations = {
   },
   SET_USER(state, authUser) {
     state.authUser = authUser
+  },
+  toggleLoadingState(state,value){
+    state.systemInfo.isLoadingProducts = value;    
   }
 }
 /* 

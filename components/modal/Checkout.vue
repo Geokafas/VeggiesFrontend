@@ -60,6 +60,7 @@ export default {
 						pricesArray = [],
 						productLabel = '',
 						finalPrice = '',
+						finalPriceFixed = '',
 						quantity = 1;
 
 				productsAdded.forEach(product => {
@@ -72,13 +73,13 @@ export default {
 				});
 
 				finalPrice = pricesArray.reduce((a, b) => a + b, 0); // sum the prices
-				
+				finalPriceFixed = finalPrice.toFixed(2);
 				if (totalProducts > 1) { // set plural or singular
 					productLabel = 'products';
 				} else {
 					productLabel = 'product';
 				}
-				return `Buy ${totalProducts} ${productLabel} at ${finalPrice}€`;
+				return `Buy ${totalProducts} ${productLabel} at ${finalPriceFixed}€`;
 		},
 		isUserLoggedIn () {
 			return this.$store.getters.isUserLoggedIn;

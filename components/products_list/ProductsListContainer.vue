@@ -4,7 +4,12 @@
     <div class="card column is-one-quarter" v-for="product in products" :key="product.id">
       <VmProducts :product="product"></VmProducts>
     </div>
-    <div class="section" v-if="products.length === 0">
+    <div class="section" v-if="products.length === 0 && loadingProductsState">
+      <div class="spinner-grow" style="width: 3rem; height: 3rem; color: lightblue" role="status" >
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div v-else-if="products.length === 0 && !loadingProductsState">
       <p>{{ noProductLabel }}</p>
     </div>
   </div>
@@ -24,7 +29,8 @@ export default {
     return {
       id: '',
       noProductLabel: 'No product found',
-      productsFiltered: []
+      productsFiltered: [],
+      loadingProductsState: this.$store.state.systemInfo.isLoadingProducts
     };
   },
 
@@ -33,9 +39,9 @@ export default {
       //gets products by title if search is used
       if (this.$store.state.userInfo.hasSearched) {
         return this.getProductByTitle();
-      //populate the products with reviews and ratings
+      //populate the product cointener with the products from the products list based on the category
       } else {
-        return this.$store.state.products;
+        return getters.getProductsByCategory(this.$store.state);
       }
     }
   },
@@ -59,10 +65,18 @@ export default {
         element.reviews = this.computeReviewsSum(element.id);
 
       });
+      //adds the fetched list of products from the backend, to the global var products[]
       this.$store.commit('addToProducts', newProductsList);
       }catch(error){
         console.log(error);
       }
+      this.loadingProductsState = !this.loadingProductsState;
+    }
+  },
+
+  watch:{
+    isLoadingProducts: function(){
+      this.$store.commit('toggleLoadingState',this.loadingProductsState);
     }
   },
 
