@@ -90,6 +90,7 @@
         isCheckoutActive: false,
         isMenuOpen: false,
         category: 1,
+        //TODO: na kanw th lista dunamiki wste na fortwnei tis kathgories apo to backend
         productCategories: [
           {label: 1, value: "Φρούτα"},
           {label: 2, value: "Λαχανικά"},

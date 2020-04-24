@@ -126,7 +126,9 @@ export const state = () => ({
     openLoginModal: false,
     openSignupModal: false,
     openCheckoutModal: false,
-    isLoadingProducts: true
+    openRegistrationWithoutLoginModal: false,
+    isLoadingProducts: true,
+    openLoginModalWithoutLoginBtn: false
   }
 })
 //tha prepei na kanoun get apo ton axios kai na kratane ola ta products se enan pinaka
@@ -136,9 +138,8 @@ export const getters = {
 //o IE den upostirizei async
   async getProductsFromBackend() {
     try{
-      var partial_url = '/item/?format=json';
-      var combined_url = "https://veggiestreet.herokuapp.com"+partial_url;
-      console.log("api url"+ combined_url);
+      var partial_url = 'item/?format=json';
+      var combined_url = process.env.ROOT_API+partial_url;
       var newProductsList = [];
       let res = await axios
       .get(combined_url)
@@ -170,8 +171,8 @@ export const getters = {
   async getProductRatingsFromBackend()
   {
     try{
-      var partial_url = '/itemRatings/?format=json';
-      var combined_url = "https://veggiestreet.herokuapp.com"+partial_url;
+      var partial_url = 'itemRatings/?format=json';
+      var combined_url = process.env.ROOT_API+partial_url;
       var newProductsRatingsObjectList = [];
       let res = await axios
       .get(combined_url)
@@ -191,8 +192,8 @@ export const getters = {
   async getProductReviewsFromBackend()
   {
     try{
-      var partial_url = '/itemReviews/?format=json';
-      var combined_url = "https://veggiestreet.herokuapp.com"+partial_url;
+      var partial_url = 'itemReviews/?format=json';
+      var combined_url = process.env.ROOT_API+partial_url;
       var newProductsReviewsObjectList = [];
       let res = await axios
       .get(combined_url)
@@ -243,6 +244,9 @@ export const getters = {
   },
   isCheckoutModalOpen: state => {
     return state.systemInfo.openCheckoutModal;
+  },
+  isRegistrationWithoutLoginModalOpen: state => {
+    return state.systemInfo.openRegistrationWithoutLoginModal;
   },
   quantity: state => {
     return state.products.quantity;
@@ -324,6 +328,9 @@ export const mutations = {
   showCheckoutModal: (state, show) => {
     state.systemInfo.openCheckoutModal = show;
   },
+  showRegistrationWithoutLoginModal: (state, show) => {
+    state.systemInfo.openRegistrationWithoutLoginModal = show;
+  },
   addToFavourite: (state, id) => {
     state.products.forEach(el => {
       if (id === el.id) {
@@ -350,6 +357,9 @@ export const mutations = {
   },
   toggleLoadingState(state,value){
     state.systemInfo.isLoadingProducts = value;    
+  },
+  showLoginModalWithoutLoginBtn(state,value){
+    state.systemInfo.openLoginModalWithoutLoginBtn = value;
   }
 }
 /* 

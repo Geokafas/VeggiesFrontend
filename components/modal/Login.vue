@@ -45,6 +45,7 @@
                 <span v-if="highlightPasswordWithError !== null" class="icon is-small is-right">
                   <i :class="[highlightPasswordWithError ? 'fa fa-exclamation-circle' : 'fa fa-check']"></i>
                 </span>
+                <a v-if="!userhasPlacedOrderWithoutLogin" class="link" @click="openRegistrationWithoutLoginModal"> Continue without log in </a>
               </p>
               <p v-if="highlightPasswordWithError" class="help is-danger">{{ passwordRequiredLabel }}</p>
             </div>
@@ -87,7 +88,8 @@ export default {
       password: '',
       highlightEmailWithError: null,
       highlightPasswordWithError: null,
-      isFormSuccess: false
+      isFormSuccess: false,
+      userhasPlacedOrderWithoutLogin: this.$store.state.systemInfo.openLoginModalWithoutLoginBtn
     };
   },
 
@@ -106,6 +108,10 @@ export default {
 
   methods: {
     closeModal () {
+      this.$store.commit('showLoginModal', false);
+    },
+    openRegistrationWithoutLoginModal () {
+      this.$store.commit('showRegistrationWithoutLoginModal',true);
       this.$store.commit('showLoginModal', false);
     },
     checkForm (e) {
@@ -148,6 +154,12 @@ export default {
     checkPasswordOnKeyUp (passwordValue) {
       if (passwordValue) {
         this.highlightPasswordWithError = false;
+
+        if (this.repeatPassword === this.password) {
+          this.highlightRepeatPasswordWithError = false;
+        } else {
+          this.highlightRepeatPasswordWithError = true;
+        }
       } else {
         this.highlightPasswordWithError = true;
       }
@@ -162,6 +174,14 @@ export default {
 }
 .fa-check {
   color: green;
+}
+.link{
+  text-decoration: underline !important;
+  color: blue !important;
+}
+.link:hover{
+  background: lightblue;
+  color: black !important;
 }
 </style>
 

@@ -60,7 +60,6 @@ export default {
         console.log(newProductsRatingsObjectList);
         console.log(newProductsReviewsObjectList);
         newProductsList.forEach(element=>{
-
         element.ratings = this.computeRatingsAvg(element.id);
         element.reviews = this.computeReviewsSum(element.id);
 
@@ -70,6 +69,7 @@ export default {
       }catch(error){
         console.log(error);
       }
+      //change loading state to loaded if data is fetched
       this.loadingProductsState = !this.loadingProductsState;
     }
   },

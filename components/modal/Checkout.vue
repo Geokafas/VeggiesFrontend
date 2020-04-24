@@ -108,6 +108,8 @@ export default {
 			} else {
 				this.$store.commit('showCheckoutModal', false);
 				this.$store.commit('showLoginModal', true);
+				this.$store.commit('showLoginModalWithoutLoginBtn',true);
+				console.log(this.$store.state.systemInfo.openLoginModalWithoutLoginBtn);
 			}
 		},
 		onPrevBtn () {

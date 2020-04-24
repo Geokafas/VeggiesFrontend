@@ -6,6 +6,7 @@
       <VmLoginModal></VmLoginModal>
       <VmRegistrationModal></VmRegistrationModal>
       <VmCheckoutModal></VmCheckoutModal>
+      <VMRegistrationWithoutLoginModal></VMRegistrationWithoutLoginModal>
     </main>
     <VmFooter></VmFooter>
   </div>
@@ -17,6 +18,7 @@ import VmFooter from '@/components/footer/Footer';
 import VmLoginModal from '@/components/modal/Login';
 import VmRegistrationModal from '@/components/modal/Registration';
 import VmCheckoutModal from '@/components/modal/Checkout';
+import VMRegistrationWithoutLoginModal from '@/components/modal/registrationWithoutLogin';
 
 export default {
   components: {
@@ -24,7 +26,8 @@ export default {
     VmFooter,
     VmLoginModal,
     VmRegistrationModal,
-    VmCheckoutModal
+    VmCheckoutModal,
+    VMRegistrationWithoutLoginModal
   }
 }
 </script>

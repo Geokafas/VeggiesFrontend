@@ -1,7 +1,9 @@
 const pkg = require('./package')
+const env = require('dotenv').config()
 
 module.exports = {
   mode: 'universal',
+  env: env.parsed,
 
   /*
   ** Headers of the page
